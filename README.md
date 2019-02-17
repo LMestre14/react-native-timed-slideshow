@@ -20,8 +20,8 @@ React-Native-Timed-Slideshow, as the name suggests, is a Slideshow component wit
     -   [Items Properties](#items-properties)
 -   [Image Wrapper](#image-wrapper)
     -   [Usage](#usage)
-    -   [Properties](#image-properties)
--   [Acknowledgement](#acknowledgment)
+    -   [Properties](#properties-1)
+-   [Acknowledgement](#acknowledgement)
 -   [License](#license)
 
 ## Installation
