@@ -9,7 +9,7 @@ React-Native-Timed-Slideshow, as the name suggests, is a Slideshow component wit
 
 ###### My Component
 
-![Proof of Concept](https://media.giphy.com/media/3lxnPdStOOyuU3oXDf/giphy.gif)
+![demo](./demo.gif)
 
 ## Getting Started
 
