@@ -71,6 +71,13 @@ export interface SlideShowProperties {
     fullWidth?: boolean;
 
     /**
+     * @param {string} progressBarColor
+     * String to change the progress bar color
+     * Default: null
+     */
+    progressBarColor?: string;
+
+    /**
      * @param {boolean} showProgressBar
      * Flag to show or hide the progress bar
      * Default: true

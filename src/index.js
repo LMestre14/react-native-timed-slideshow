@@ -16,6 +16,7 @@ export default class TimedSlideshow extends Component {
         index: 0,
         extraSpacing: EXTRA_WIDTH,
         fullWidth: false,
+        progressBarColor: null,
         showProgressBar: true,
         slideDirection: 'even',
         progressBarDirection: 'middle',
@@ -115,11 +116,11 @@ export default class TimedSlideshow extends Component {
     }
 
     renderProgressBar() {
-        const { showProgressBar, progressBarDirection } = this.props;
+        const { showProgressBar, progressBarDirection, progressBarColor } = this.props;
         const { layoutWidth } = this.state;
         if(!showProgressBar) return null;
 
-        let animation = { scaleX: this.state.timer };
+        let animation = { transform: [{scaleX: this.state.timer}] };
 
         if(progressBarDirection === 'fromLeft' || progressBarDirection === 'fromRight') {
             // Footer container as a width of 100% with paddingHorizontal of 7.5%
@@ -133,12 +134,14 @@ export default class TimedSlideshow extends Component {
                 extrapolate: 'clamp',
             });
 
-            animation = { translateX };
+            animation.transform = [{ translateX }];
         }
+
+        if (progressBarColor) animation.backgroundColor = progressBarColor;
 
         return (
             <View style={Styles.progressBarContainer}>
-                <Animated.View style={[Styles.progressBar, { transform: [animation] }]} />
+                <Animated.View style={[Styles.progressBar, animation]} />
             </View>
         );
     }
