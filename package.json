@@ -1,22 +1,31 @@
 {
-  "name": "timed_slideshow",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
-  },
-  "dependencies": {
-    "react": "16.6.1",
-    "react-native": "0.57.7"
-  },
-  "devDependencies": {
-    "babel-jest": "23.6.0",
-    "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.50.0",
-    "react-test-renderer": "16.6.1"
-  },
-  "jest": {
-    "preset": "react-native"
-  }
+    "name": "react-native-timed-slideshow",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "node node_modules/react-native/local-cli/cli.js start",
+        "test": "jest"
+    },
+    "description": "A Javascript slideshow component for React-Native (Android and iOS). React-Native-Timed-Slideshow, as the name suggests, is a Slideshow component with timed animation. It uses Animated library from React-Native, with native driver (only native animations).",
+    "main": "src/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LMestre14/react-native-timed-slideshow.git"
+    },
+    "keywords": [
+        "slideshow",
+        "slider",
+        "timed-slideshow",
+        "react-native",
+        "android",
+        "ios",
+        "images",
+        "animation",
+        "animated"
+    ],
+    "author": "Luís Mestre <this.dev.lmestre@outlook.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/LMestre14/react-native-timed-slideshow/issues"
+    },
+    "homepage": "https://github.com/LMestre14/react-native-timed-slideshow#readme"
 }
