@@ -29,14 +29,17 @@ export default class ImageWrapper extends Component {
 
     // wip
     componentWillMount() {
-        Image.getSize(this.props.uri, (imgWidth, imgHeight) => {
-            try {
-                let maxWidth = imgWidth * height / imgHeight;
-                this.setState({ maxWidth });
-            } catch(err) {
-
-            }
-        });
+        const { uri } = this.props;
+        if(isNaN(uri)) {
+            Image.getSize(uri, (imgWidth, imgHeight) => {
+                try {
+                    let maxWidth = imgWidth * height / imgHeight;
+                    this.setState({ maxWidth });
+                } catch(err) {
+    
+                }
+            });
+        }
     }
 
     componentDidMount() {
@@ -107,7 +110,7 @@ export default class ImageWrapper extends Component {
             <View style={[Styles.itemContainer, { width: layoutWidth }]}>
                 <Animated.Image
                     style={[Styles.image, { alignSelf: direction, width: imgWidth, transform: [{ translateX }] }]}
-                    source={{ uri }}
+                    source={isNaN(uri) ? { uri } : uri}
                     resizeMethod='resize'
                 />
             </View>
