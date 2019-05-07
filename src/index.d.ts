@@ -157,6 +157,12 @@ export interface SlideShowProperties {
      * Function that renders the slideshow footers icon for next
      */
     renderIcon?: ({ snapToNext: Function }) => JSX.Element;
+
+    /**
+     * @param {function} onClose
+     * Callback when user clicks the close button
+     */
+    onClose?: (index) => JSX.Element;
 }
 
 export default class TimedSlideshow extends Component<SlideShowProperties> {}

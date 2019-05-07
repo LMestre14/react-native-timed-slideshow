@@ -27,6 +27,7 @@ export default class TimedSlideshow extends Component {
         renderFooter: null,
         renderIcon: null,
         loop: true,
+        onClose: null,
     }
     
     constructor(props) {
@@ -42,6 +43,7 @@ export default class TimedSlideshow extends Component {
         this.snapToNext = this.snapToNext.bind(this);
         this.onLayout = this.onLayout.bind(this);
         this.renderItem = this.renderItem.bind(this);
+        this.onClose = this.onClose.bind(this);
     }
 
     componentDidMount() {
@@ -165,7 +167,10 @@ export default class TimedSlideshow extends Component {
     }
 
     onClose() {
-        // override?
+        const { onClose } = this.props;
+        const { index } = this.state;
+        if(typeof onClose == 'function') 
+            return onClose(index);
     }
     renderCloseIcon() {
         // TODO: allow user to specify close button/action
