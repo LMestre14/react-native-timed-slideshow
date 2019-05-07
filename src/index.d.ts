@@ -43,6 +43,13 @@ export interface SlideShowProperties {
     items: [Item];
 
     /**
+     * @param {boolean} loop
+     * If true, items will be displayed in loop
+     * Default: true
+     */
+    loop?: boolean,
+
+    /**
      * @param {number} duration
      * The duration in milliseconds of the animation of all the slides
      * Default: 5000

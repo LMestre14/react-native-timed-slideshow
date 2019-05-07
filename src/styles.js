@@ -36,6 +36,15 @@ export default StyleSheet.create({
         height: width * 0.1,
     },
 
+    closeImg: {
+        position: 'absolute',
+        top: 30,
+        right: 0,
+        width: 50,
+        height: 50,
+        color: 'white',
+    },
+
     // Footer Styles
     footerContainer: {
         position: 'absolute',

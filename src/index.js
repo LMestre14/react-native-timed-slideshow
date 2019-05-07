@@ -26,6 +26,7 @@ export default class TimedSlideshow extends Component {
         renderItem: null,
         renderFooter: null,
         renderIcon: null,
+        loop: true,
     }
     
     constructor(props) {
@@ -63,15 +64,20 @@ export default class TimedSlideshow extends Component {
 
     snapToNext() {
         const { index, timer } = this.state;
-        let { items } = this.props;
+        let { items, loop } = this.props;
 
         let newIndex = (index + 1) % items.length;
 
         timer.stopAnimation(() => {
-            this.slideShow.scrollToIndex({ animated: true, index: newIndex });
-            this.setState({ timer: new Animated.Value(0), index: newIndex }, () => {
-                this.animation();
-            });
+            if (!loop && newIndex === 0) {
+                // we reached the start again, stop the loop
+            }
+            else {
+                this.slideShow.scrollToIndex({ animated: true, index: newIndex });
+                this.setState({ timer: new Animated.Value(0), index: newIndex }, () => {
+                    this.animation();
+                });
+            }
         });
     }
 
@@ -158,8 +164,23 @@ export default class TimedSlideshow extends Component {
         )
     }
 
+    onClose() {
+        // override?
+    }
+    renderCloseIcon() {
+        // TODO: allow user to specify close button/action
+        // const { renderIcon } = this.props;
+        // if(typeof renderIcon == 'function') return renderIcon({ snapToNext: this.snapToNext});
+
+        return (
+            <TouchableWithoutFeedback onPress={this.onClose}>
+                <Image source={require('./close.png')} style={Styles.closeImg} />
+            </TouchableWithoutFeedback>
+        )
+    }
+
     renderFooterContent() {
-        const { items, renderFooter, titleStyle = {}, textStyle = {} } = this.props;
+        const { items, renderFooter, loop, titleStyle = {}, textStyle = {} } = this.props;
         const { index, timer, focusedIndex } = this.state;
 
         const item = items[index];
@@ -186,6 +207,7 @@ export default class TimedSlideshow extends Component {
 
         if(typeof renderFooter == 'function') return renderFooter({ item, index, focusedIndex, defaultStyle: Styles.footerContentContainer, animation });
 
+        if (loop) opacity = null;
         return (
             <View style={Styles.footerContentContainer}>
                 <View style={{ flex: 1 }}>
@@ -244,6 +266,7 @@ export default class TimedSlideshow extends Component {
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item, index) => `slide_item_${index}`}
                 />
+                {this.renderCloseIcon()}
                 {this.renderFooter()}
             </View>
         );
