@@ -174,7 +174,12 @@ export default class TimedSlideshow extends Component {
 
         return (
             <TouchableWithoutFeedback onPress={this.onClose}>
-                <Image source={require('./close.png')} style={Styles.closeImg} />
+                <Image 
+                    source={require('./close.png')} 
+                    style={{position: 'absolute', top: 35, right: 20, tintColor:'white'}}
+                    width={25}
+                    height={25}
+                    tintColor='white' />
             </TouchableWithoutFeedback>
         )
     }
@@ -197,7 +202,7 @@ export default class TimedSlideshow extends Component {
             extrapolate: 'clamp'
         });
 
-        const opacity = timer.interpolate({
+        let opacity = timer.interpolate({
             inputRange: [.9, .95],
             outputRange: [1, 0],
             extrapolate: 'clamp'
@@ -207,7 +212,7 @@ export default class TimedSlideshow extends Component {
 
         if(typeof renderFooter == 'function') return renderFooter({ item, index, focusedIndex, defaultStyle: Styles.footerContentContainer, animation });
 
-        if (loop) opacity = null;
+        if (!loop) opacity = null;
         return (
             <View style={Styles.footerContentContainer}>
                 <View style={{ flex: 1 }}>
