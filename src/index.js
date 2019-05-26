@@ -26,6 +26,8 @@ export default class TimedSlideshow extends Component {
         renderItem: null,
         renderFooter: null,
         renderIcon: null,
+        loop: true,
+        onClose: null,
     }
     
     constructor(props) {
@@ -41,6 +43,7 @@ export default class TimedSlideshow extends Component {
         this.snapToNext = this.snapToNext.bind(this);
         this.onLayout = this.onLayout.bind(this);
         this.renderItem = this.renderItem.bind(this);
+        this.onClose = this.onClose.bind(this);
     }
 
     componentDidMount() {
@@ -63,15 +66,20 @@ export default class TimedSlideshow extends Component {
 
     snapToNext() {
         const { index, timer } = this.state;
-        let { items } = this.props;
+        let { items, loop } = this.props;
 
         let newIndex = (index + 1) % items.length;
 
         timer.stopAnimation(() => {
-            this.slideShow.scrollToIndex({ animated: true, index: newIndex });
-            this.setState({ timer: new Animated.Value(0), index: newIndex }, () => {
-                this.animation();
-            });
+            if (!loop && newIndex === 0) {
+                // we reached the start again, stop the loop
+            }
+            else {
+                this.slideShow.scrollToIndex({ animated: true, index: newIndex });
+                this.setState({ timer: new Animated.Value(0), index: newIndex }, () => {
+                    this.animation();
+                });
+            }
         });
     }
 
@@ -158,8 +166,31 @@ export default class TimedSlideshow extends Component {
         )
     }
 
+    onClose() {
+        const { onClose } = this.props;
+        const { index } = this.state;
+        if(typeof onClose == 'function') 
+            return onClose(index);
+    }
+    renderCloseIcon() {
+        // TODO: allow user to specify close button/action
+        // const { renderIcon } = this.props;
+        // if(typeof renderIcon == 'function') return renderIcon({ snapToNext: this.snapToNext});
+
+        return (
+            <TouchableWithoutFeedback onPress={this.onClose}>
+                <Image 
+                    source={require('./close.png')} 
+                    style={{position: 'absolute', top: 35, right: 20, tintColor:'white'}}
+                    width={25}
+                    height={25}
+                    tintColor='white' />
+            </TouchableWithoutFeedback>
+        )
+    }
+
     renderFooterContent() {
-        const { items, renderFooter, titleStyle = {}, textStyle = {} } = this.props;
+        const { items, renderFooter, loop, titleStyle = {}, textStyle = {} } = this.props;
         const { index, timer, focusedIndex } = this.state;
 
         const item = items[index];
@@ -176,7 +207,7 @@ export default class TimedSlideshow extends Component {
             extrapolate: 'clamp'
         });
 
-        const opacity = timer.interpolate({
+        let opacity = timer.interpolate({
             inputRange: [.9, .95],
             outputRange: [1, 0],
             extrapolate: 'clamp'
@@ -186,6 +217,7 @@ export default class TimedSlideshow extends Component {
 
         if(typeof renderFooter == 'function') return renderFooter({ item, index, focusedIndex, defaultStyle: Styles.footerContentContainer, animation });
 
+        if (!loop) opacity = null;
         return (
             <View style={Styles.footerContentContainer}>
                 <View style={{ flex: 1 }}>
@@ -244,6 +276,7 @@ export default class TimedSlideshow extends Component {
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item, index) => `slide_item_${index}`}
                 />
+                {this.renderCloseIcon()}
                 {this.renderFooter()}
             </View>
         );

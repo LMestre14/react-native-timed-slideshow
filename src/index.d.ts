@@ -43,6 +43,13 @@ export interface SlideShowProperties {
     items: [Item];
 
     /**
+     * @param {boolean} loop
+     * If true, items will be displayed in loop
+     * Default: true
+     */
+    loop?: boolean,
+
+    /**
      * @param {number} duration
      * The duration in milliseconds of the animation of all the slides
      * Default: 5000
@@ -150,6 +157,12 @@ export interface SlideShowProperties {
      * Function that renders the slideshow footers icon for next
      */
     renderIcon?: ({ snapToNext: Function }) => JSX.Element;
+
+    /**
+     * @param {function} onClose
+     * Callback when user clicks the close button
+     */
+    onClose?: (index) => JSX.Element;
 }
 
 export default class TimedSlideshow extends Component<SlideShowProperties> {}
