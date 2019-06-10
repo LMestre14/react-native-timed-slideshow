@@ -157,7 +157,7 @@ export default class TimedSlideshow extends Component {
     renderIcon() {
         const { renderIcon } = this.props;
 
-        if(typeof renderIcon == 'function') return renderIcon({ snapToNext: this.snapToNext});
+        if(typeof renderIcon == 'function') return renderIcon({ snapToNext: this.snapToNext });
 
         return (
             <TouchableWithoutFeedback onPress={this.snapToNext}>
@@ -169,22 +169,21 @@ export default class TimedSlideshow extends Component {
     onClose() {
         const { onClose } = this.props;
         const { index } = this.state;
-        if(typeof onClose == 'function') 
-            return onClose(index);
+        if(typeof onClose == 'function') onClose(index);
     }
+
     renderCloseIcon() {
-        // TODO: allow user to specify close button/action
-        // const { renderIcon } = this.props;
-        // if(typeof renderIcon == 'function') return renderIcon({ snapToNext: this.snapToNext});
+        const { renderIcon } = this.props;
+        if(typeof renderIcon == 'function') return renderIcon({ wrapperStyle: Styles.closeImgWrapper, imageStyle: Styles.closeImg, onPress: this.onClose });
 
         return (
             <TouchableWithoutFeedback onPress={this.onClose}>
-                <Image 
-                    source={require('./close.png')} 
-                    style={{position: 'absolute', top: 35, right: 20, tintColor:'white'}}
-                    width={25}
-                    height={25}
-                    tintColor='white' />
+                <View style={Styles.closeImgWrapper}>
+                    <Image 
+                        source={require('./close.png')} 
+                        style={Styles.closeImg}
+                    />
+                </View>
             </TouchableWithoutFeedback>
         )
     }
