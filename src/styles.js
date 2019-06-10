@@ -21,8 +21,6 @@ export default StyleSheet.create({
         flex: 1,
         width,
         overflow: 'hidden',
-        // alignItems: 'center',
-        // justifyContent: 'center',
         backgroundColor: 'transparent',
     },
 
@@ -42,7 +40,7 @@ export default StyleSheet.create({
         bottom: 0,
         width: '100%',
         height: FOOTER_HEIGHT,
-        paddingHorizontal: '7.5%',
+        paddingHorizontal: width * 0.075,
         paddingVertical: FOOTER_HEIGHT * 0.2,
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -78,5 +76,33 @@ export default StyleSheet.create({
     footerText: {
         fontSize: 20,
         color: 'white',
+    },
+
+    closeImgWrapper: {
+        position: 'absolute',
+        right: 20,
+        ...Platform.select({
+            ios: {
+                top: 45,
+                shadowColor: '#000',
+				shadowOpacity: 0.5,
+				shadowRadius: 2,
+				shadowOffset: {
+					width: 0,
+					height: 2,
+				},
+            },
+            android: {
+                top: 35,
+                elevation: 4,
+            },
+        }),
+    },
+
+    closeImg: {
+        width: 25,
+        height: 25,
+        tintColor: 'white',
+        resizeMode: 'contain',
     },
 });
