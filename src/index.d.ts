@@ -2,7 +2,7 @@
  * @author Luís Mestre <https://github.com/LMestre14>
  */
 import { Component } from 'react';
-import { TextStyle, ViewStyle, Animated } from 'react-native';
+import { TextStyle, ViewStyle, Animated, ImageStyle } from 'react-native';
 
 type Item = {
     /**
@@ -47,7 +47,7 @@ export interface SlideShowProperties {
      * If true, items will be displayed in loop
      * Default: true
      */
-    loop?: boolean,
+    loop?: boolean;
 
     /**
      * @param {number} duration
@@ -157,6 +157,16 @@ export interface SlideShowProperties {
      * Function that renders the slideshow footers icon for next
      */
     renderIcon?: ({ snapToNext: Function }) => JSX.Element;
+
+    /**
+     * @param {function} renderCloseIcon
+     * Function that renders the slideshow close icon
+     */
+    renderCloseIcon?: ({
+        wrapperStyle: ViewStyle,
+        imageStyle: ImageStyle,
+        onPress: Function
+    }) => JSX.Element;
 
     /**
      * @param {function} onClose

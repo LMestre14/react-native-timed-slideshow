@@ -173,8 +173,8 @@ export default class TimedSlideshow extends Component {
     }
 
     renderCloseIcon() {
-        const { renderIcon } = this.props;
-        if(typeof renderIcon == 'function') return renderIcon({ wrapperStyle: Styles.closeImgWrapper, imageStyle: Styles.closeImg, onPress: this.onClose });
+        const { renderCloseIcon } = this.props;
+        if(typeof renderCloseIcon == 'function') return renderCloseIcon({ wrapperStyle: Styles.closeImgWrapper, imageStyle: Styles.closeImg, onPress: this.onClose });
 
         return (
             <TouchableWithoutFeedback onPress={this.onClose}>
