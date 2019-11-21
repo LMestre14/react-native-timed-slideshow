@@ -19,7 +19,6 @@ export default class ImageWrapper extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             maxWidth: -1,
             imgWidth: props.extraSpacing + props.layoutWidth,
@@ -27,8 +26,13 @@ export default class ImageWrapper extends Component {
         };
     }
 
-    // wip
-    componentWillMount() {
+ 
+    componentDidMount() {
+        if(this.props.focusedIndex == this.props.index) {
+            this.startAnimation();
+        }
+
+        //moved from componentWillMount here to fix future deprecation issue
         const { uri } = this.props;
         if(isNaN(uri)) {
             Image.getSize(uri, (imgWidth, imgHeight) => {
@@ -42,18 +46,16 @@ export default class ImageWrapper extends Component {
         }
     }
 
-    componentDidMount() {
-        if(this.props.focusedIndex == this.props.index) {
-            this.startAnimation();
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.state.translateX.stopAnimation(() => {
-            if(nextProps.focusedIndex == nextProps.index) {
+    //componentWillReceiveProps will be deprecated  
+    shouldComponentUpdate(nextProps, nextState){
+        if(nextProps.focusedIndex == nextProps.index) {
+            this.state.translateX.stopAnimation(() => {
                 this.startAnimation();
-            }
-        });
+            });
+            return false;
+        }else{
+            return true;
+        }
     }
 
     // true -> left to right
